@@ -8,8 +8,9 @@ Vue.use(Vuetify);
 Vue.use(VeeValidate);
 
 // VeForm Components Start
+
 import VeApp from './components/VeApp';
-Vue.component('ve-form', VeApp);
+Vue.component('ve-app', VeApp);
 
 import VeHeader from './components/VeHeader';
 Vue.component('ve-header', VeHeader);
@@ -25,6 +26,12 @@ Vue.component('ve-text', VeText);
 
 import VeBrreg from './components/VeBrreg';
 Vue.component('ve-brreg', VeBrreg);
+
+import VeLogo from './components/VeLogo';
+Vue.component('ve-logo', VeLogo);
+
+import VeError from './components/VeError';
+Vue.component('ve-error', VeError);
 
 // VeForm Components Stop
 
