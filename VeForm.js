@@ -33,6 +33,15 @@ Vue.component('ve-logo', VeLogo);
 import VeError from './components/VeError';
 Vue.component('ve-error', VeError);
 
+import VeStandardHeader from './components/standard/VeStandardHeader';
+Vue.component('ve-standard-header', VeStandardHeader);
+
+import VeStandardLogo from './components/standard/VeStandardLogo';
+Vue.component('ve-standard-logo', VeStandardLogo);
+
+import VeStandardFlags from './components/standard/VeStandardFlags';
+Vue.component('ve-standard-flags', VeStandardFlags);
+
 // VeForm Components Stop
 
 export default class VeForm {

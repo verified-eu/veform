@@ -6,6 +6,7 @@
 </style>
 
 <template>
+<v-flex md6>
     <v-layout row wrap>
         <v-flex xs12>
         <v-card dark :color="color || 'primary'">
@@ -15,6 +16,7 @@
         </v-card>
         </v-flex>
     </v-layout>
+</v-flex>
 </template>
 
 <script>
