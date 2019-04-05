@@ -42,6 +42,9 @@ Vue.component('ve-standard-logo', VeStandardLogo);
 import VeStandardFlags from './components/standard/VeStandardFlags';
 Vue.component('ve-standard-flags', VeStandardFlags);
 
+import VeStandardBody from './components/standard/VeStandardBody';
+Vue.component('ve-standard-body', VeStandardBody);
+
 // VeForm Components Stop
 
 export default class VeForm {

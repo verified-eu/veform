@@ -3,6 +3,8 @@
 
 h1 {
     color: #fff;
+    font-size: 40px;
+    margin-top: 20px;
 }
 
 </style>
