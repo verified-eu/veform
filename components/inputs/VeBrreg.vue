@@ -1,3 +1,13 @@
+<style>
+
+.required label:after{
+  content:" *";
+  color: red;
+  font-weight: bold;
+}
+
+</style>
+
 <template>
     <v-flex
     xs12
@@ -12,16 +22,21 @@
     :md9="md9"
     :md10="md10"
     :md11="md11"
-    :md12="md12">
+    :md12="md12"
+    >
 
         <v-menu flat full-width offset-y>
             <v-text-field
+                :class="required != undefined ? 'required' : ''"
                 slot="activator"
                 :value="companyName"
                 @input="handleInput"
                 :label="label"
                 append-icon="business"
                 browser-autocomplete="none"
+                :error-messages="error"
+                :rules="validate()"
+                :required="required"
             ></v-text-field>
             <v-list>
                 <v-list-tile
@@ -45,10 +60,12 @@ export default {
     props: [
         'value',
         'label',
+        'required',
         'md1', 'md2', 'md3', 'md4', 'md5', 'md6', 'md7', 'md8', 'md9', 'md10', 'md11', 'md12'
         ],
     data () {
         return {
+            error: '',
             companyName: '',
             selected: { name: '' },
             items: [
@@ -100,6 +117,12 @@ export default {
             this.selected.clicked = true;
             this.companyName = this.selected.name;
             this.$emit('input', this.selected);
+        },
+
+        validate() {
+            return [
+                v => { if(this.required == "true" && !v) return 'Required'; else return true }
+            ]
         }
     }
 }

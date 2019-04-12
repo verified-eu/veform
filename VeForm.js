@@ -8,7 +8,7 @@ import VeVerticalHeader from './components/vertical/VeVerticalHeader';
 import VeVerticalForm from './components/vertical/VeVerticalForm';
 import VeVerticalStep from './components/vertical/VeVerticalStep';
 import VeText from './components/inputs/VeText';
-import VeBrreg from './components/VeBrreg';
+import VeBrreg from './components/inputs/VeBrreg';
 import VerifiedLogo from './components/VerifiedLogo';
 import VeError from './components/VeError';
 import VeStandardHeader from './components/standard/VeStandardHeader';
