@@ -22,7 +22,7 @@
 <script>
 
 export default {
-    name: 've-header',
+    name: 've-vertical-header',
     props: ['color']
 }
 

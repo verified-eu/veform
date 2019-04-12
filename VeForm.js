@@ -3,49 +3,44 @@ import Vuetify from 'vuetify';
 import VeeValidate from 'vee-validate'
 import 'vuetify/dist/vuetify.min.css';
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
+import VeApp from './components/VeApp';
+import VeVerticalHeader from './components/vertical/VeVerticalHeader';
+import VeVerticalForm from './components/vertical/VeVerticalForm';
+import VeVerticalStep from './components/vertical/VeVerticalStep';
+import VeText from './components/inputs/VeText';
+import VeBrreg from './components/VeBrreg';
+import VerifiedLogo from './components/VerifiedLogo';
+import VeError from './components/VeError';
+import VeStandardHeader from './components/standard/VeStandardHeader';
+import VeStandardLogo from './components/standard/VeStandardLogo';
+import VeStandardFlags from './components/standard/VeStandardFlags';
+import VeStandardBody from './components/standard/VeStandardBody';
+import VeLabel from './components/inputs/VeLabel';
 
 Vue.use(Vuetify);
 Vue.use(VeeValidate);
 
-// VeForm Components Start
-
-import VeApp from './components/VeApp';
+// Generic components
 Vue.component('ve-app', VeApp);
-
-import VeHeader from './components/VeHeader';
-Vue.component('ve-header', VeHeader);
-
-import VeVerticalForm from './components/VeVerticalForm';
-Vue.component('ve-vertical-form', VeVerticalForm);
-
-import VeVerticalStep from './components/VeVerticalStep';
-Vue.component('ve-vertical-step', VeVerticalStep);
-
-import VeText from './components/VeText';
-Vue.component('ve-text', VeText);
-
-import VeBrreg from './components/VeBrreg';
-Vue.component('ve-brreg', VeBrreg);
-
-import VeLogo from './components/VeLogo';
-Vue.component('ve-logo', VeLogo);
-
-import VeError from './components/VeError';
+Vue.component('vf-logo', VerifiedLogo);
 Vue.component('ve-error', VeError);
 
-import VeStandardHeader from './components/standard/VeStandardHeader';
-Vue.component('ve-standard-header', VeStandardHeader);
+// Vertical form components
+Vue.component('ve-header', VeVerticalHeader);
+Vue.component('ve-vertical-form', VeVerticalForm);
+Vue.component('ve-vertical-step', VeVerticalStep);
 
-import VeStandardLogo from './components/standard/VeStandardLogo';
-Vue.component('ve-standard-logo', VeStandardLogo);
+// Input components
+Vue.component('ve-label', VeLabel);
+Vue.component('ve-text', VeText);
+Vue.component('ve-brreg', VeBrreg);
 
-import VeStandardFlags from './components/standard/VeStandardFlags';
-Vue.component('ve-standard-flags', VeStandardFlags);
+// Standard form components
+Vue.component('ve-std-header', VeStandardHeader);
+Vue.component('ve-std-logo', VeStandardLogo);
+Vue.component('ve-std-flags', VeStandardFlags);
+Vue.component('ve-std-body', VeStandardBody);
 
-import VeStandardBody from './components/standard/VeStandardBody';
-Vue.component('ve-standard-body', VeStandardBody);
-
-// VeForm Components Stop
 
 export default class VeForm {
 

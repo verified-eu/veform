@@ -32,7 +32,7 @@
 <script>
 
 export default {
-    name: 've-logo',
+    name: 'vf-logo',
     props: ['color', 'size'],
     methods: {
         style() {

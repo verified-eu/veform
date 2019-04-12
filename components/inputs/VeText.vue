@@ -1,9 +1,11 @@
 <style>
+
 .required label:after{
   content:" *";
   color: red;
   font-weight: bold;
 }
+
 </style>
 
 <template>

@@ -66,7 +66,7 @@
 </style>
 
 <template>
-    <v-flex class="flag-container" md6 text-md-right>
+    <v-flex class="flag-container" xs2 text-xs-right>
         <v-menu bottom left offset-y transition="slide-x-transition">
             <template v-slot:activator="{ on }">
                 <v-btn style="width: 50px; height: 25px;" :ripple="false" dark icon v-on="on">
@@ -235,7 +235,7 @@ const languageTranslations = {
 }
 
 export default {
-    name: 've-standard-flags',
+    name: 've-std-flags',
     props: [
         'rounded',
         'value',

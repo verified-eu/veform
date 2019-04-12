@@ -15,7 +15,7 @@
         <v-container :style="getBackground()" class="header" fluid>
             
             <v-layout align-center justify-center row wrap>
-                <v-flex md6 justify-space-around>
+                <v-flex md10 xs12 sm12 lg6 justify-space-around>
                     <v-layout row wrap>
                         <slot></slot>
                     </v-layout>
@@ -30,7 +30,7 @@
 <script>
 
 export default {
-    name: 've-standard-header',
+    name: 've-std-header',
     props: ['background'],
     methods: {
 

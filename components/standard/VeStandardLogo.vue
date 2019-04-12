@@ -10,7 +10,7 @@ h1 {
 </style>
 
 <template>
-    <v-flex md6>
+    <v-flex xs10>
         <h1><slot></slot></h1>
         <img :src="source" :style="getSize()" >
     </v-flex>
@@ -19,7 +19,7 @@ h1 {
 <script>
 
 export default {
-    name: 've-standard-logo',
+    name: 've-std-logo',
     props: ['source', 'size'],
     methods: {
         getSize() {
