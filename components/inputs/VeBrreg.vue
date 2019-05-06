@@ -9,6 +9,7 @@
 </style>
 
 <template>
+
     <v-flex
     xs12
     :md1="md1"
@@ -25,29 +26,27 @@
     :md12="md12"
     >
 
-        <v-menu flat full-width offset-y>
-            <v-text-field
-                :class="required != undefined ? 'required' : ''"
-                slot="activator"
+          <v-autocomplete
                 :value="companyName"
-                @input="handleInput"
-                :label="label"
-                append-icon="business"
-                browser-autocomplete="none"
-                :error-messages="error"
+                :class="required ? 'required' : ''"
+                :box="box"
                 :rules="validate()"
-                :required="required"
-            ></v-text-field>
-            <v-list>
-                <v-list-tile
-                    v-for="(item, index) in items"
-                    :key="index"
-                    @click="handleClick(index)"
-                >
-                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                </v-list-tile>
-            </v-list>
-        </v-menu>
+                :solo="solo"
+                :outline="outline"
+                :disabled="disabled"
+                :readonly="readonly"
+                :items="entries"
+                :search-input.sync="search"
+                placeholder="Start typing to search"
+                hide-no-data
+                :label="label"
+                :loading="loading"
+                browser-autocomplete="disabled"
+                v-model="model"
+                return-object
+            >
+            </v-autocomplete>
+        
     </v-flex>
 </template>
 
@@ -55,75 +54,108 @@
 
 import axios from 'axios';
 
+const locale = {
+    "required": {
+        "en_EN": "Required",
+        "nb_NO": "Påkrevd",
+        "sv_SE": "Obligatorisk"
+    }
+}
+
 export default {
     name: 've-brreg',
-    props: [
-        'value',
-        'label',
-        'required',
-        'md1', 'md2', 'md3', 'md4', 'md5', 'md6', 'md7', 'md8', 'md9', 'md10', 'md11', 'md12'
-        ],
+    props: {
+        value: null,
+        label: [String, Number],
+        required: {
+            type: Boolean,
+            default: false
+        },
+        box: Boolean,
+        solo: Boolean,
+        outline: Boolean,
+        disabled: Boolean,
+        readonly: Boolean,
+        clearable: Boolean,
+        md1: null, md2: null, md3: null, md4: null, md5: null, md6: null, md7: null, md8: null, md9: null, md10: null, md11: null, md12: null
+    },
     data () {
         return {
             error: '',
             companyName: '',
             selected: { name: '' },
-            items: [
-                { title: "Enter company info manually" }
-            ]
+            items: [],
+            search: null,
+            model: null,
+            loading: false
         }
     },
     methods: {
-        handleInput(e) {
 
-            this.companyName = e;
-            this.selected.name = this.companyName;
-
-            if(this.selected.title)
-                this.$emit('input', this.selected);
-
-            if(e.length < 2)
-                return;
-
-            this.loading = true;
+        __(key) {
+            if(!locale[key])
+                return '...'
             
-            axios.get(encodeURI(`https://data.brreg.no/enhetsregisteret/enhet.json?page=0&size=10&$filter=startswith(navn,'${this.companyName}')`))
+            if(!locale[key][this.$root.locale])
+                return locale[key]['en_EN']
+
+            return locale[key][this.$root.locale]
+        },
+
+        validate() {
+            return [
+                v => !(this.required && (!v || v.length == '')) || this.__('required')
+            ]
+        }
+
+    },
+
+    computed: {
+
+        entries() {
+            return this.items
+        }
+
+    },
+
+    watch: {
+
+        search(val) {
+            
+            if(!val || val.length < 2)
+                return;
+            
+            this.loading = true
+            axios.get(encodeURI(`https://data.brreg.no/enhetsregisteret/enhet.json?page=0&size=10&$filter=startswith(navn,'${val}')`))
             .then(res => {
-                this.items = [];
+                this.items = []
                 for(let org of res.data.data) {
                     let data = {
-                        title: org.navn,
+                        value: org.navn,
+                        text: org.navn,
                         name: org.navn,
                         nr: org.organisasjonsnummer,
                         address: org.forretningsadresse.adresse,
                         zip: org.forretningsadresse.postnummer,
                         town: org.forretningsadresse.poststed,
-                        raw: org,
-                        clicked: false
-                    };
-                    this.items.push(data);
+                        raw: org
+                    }
+                    this.items.push(data)
                 }
             })
             .catch(err => {
-                this.items = [];
+                this.items = []
             })
             .finally(_ => {
-                this.items.push({ title: "Enter company info manually" });
+                this.loading = false
             });
+
         },
 
-        handleClick(i) {
-            this.selected = this.items[i];
-            this.selected.clicked = true;
-            this.companyName = this.selected.name;
-            this.$emit('input', this.selected);
-        },
-
-        validate() {
-            return [
-                v => { if(this.required == "true" && !v) return 'Required'; else return true }
-            ]
+        model() {
+            this.$emit('input', this.model)
         }
+
     }
 }
 </script>

@@ -33,7 +33,7 @@
         :disabled="disabled"
         :readonly="readonly"
         :clearable="clearable"
-        :mask="mask"
+        mask="####"
         :label="label"
         :placeholder="placeholder"
         :error-messages="error"
@@ -48,28 +48,30 @@
 
 <script>
 
+import zipData from '../../assets/data/zip_no.json'
+
 const locale = {
     "required": {
         "en_EN": "Required",
         "nb_NO": "Påkrevd",
         "sv_SE": "Obligatorisk"
     },
-    "min_length": {
-        "en_EN": "Minimum %n characters",
-        "nb_NO": "Minst %n tegn",
-        "sv_SE": "Min %n tecken"
+    "four_digits": {
+        "en_EN": "Must be 4 digits",
+        "nb_NO": "Må være 4 tall",
+        "sv_SE": "Måste vara 4 siffror"
     },
-    "max_length": {
-        "en_EN": "Max %n characters",
-        "nb_NO": "Maks %n tegn",
-        "sv_SE": "Max %n tecken",
+    "invalid_zip": {
+        "en_EN": "Not a valid zip",
+        "nb_NO": "Ugyldig postkode",
+        "sv_SE": "Inte en giltig postkod",
     }
 }
 
 export default {
-    name: 've-text',
+    name: 've-zip-no',
     props: {
-        value: [String, Number],
+        value: null,
         label: String,
         box: Boolean,
         solo: Boolean,
@@ -82,16 +84,7 @@ export default {
         appendIcon: String,
         appendOuterIcon: String,
         placeholder: String,
-        mask: String,
         browserAutocomplete: Boolean,
-        max: {
-            type: [Number, String],
-            default: 10000
-        },
-        min: {
-            type: [Number, String],
-            default: 0
-        },
         required: {
             type: Boolean,
             default: false
@@ -108,7 +101,12 @@ export default {
     methods: {
 
         handleInput(e) {
-            this.$emit('input', e)
+
+            if(zipData[e])
+                this.$emit('town', zipData[e])
+
+            this.$emit('input', e);
+
         },
 
         __(key) {
@@ -123,9 +121,9 @@ export default {
 
         validate() {
             return [
-                v => !(v && v.length < this.min) || this.__('min_length').replace('%s', this.min),
-                v => !(v && v.length > this.max) || this.__('max_length').replace('%s', this.max), 
-                v => !(this.required && (!v || v.length == '')) || this.__('required')
+                v => !(this.required && (!v || v.length == '')) || this.__('required'),
+                v => !(v && v.length != 4) || this.__('four_digits'),
+                v => (v in zipData) || this.__('invalid_zip')
             ]
         }
 

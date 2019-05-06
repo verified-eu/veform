@@ -11,7 +11,7 @@
 }
 
 .body-layout {
-    padding: 15px 20px;
+    padding: 15px 30px;
 }
 
 </style>

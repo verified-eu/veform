@@ -54,20 +54,20 @@ const locale = {
         "nb_NO": "Påkrevd",
         "sv_SE": "Obligatorisk"
     },
-    "min_length": {
-        "en_EN": "Minimum %n characters",
-        "nb_NO": "Minst %n tegn",
-        "sv_SE": "Min %n tecken"
-    },
-    "max_length": {
-        "en_EN": "Max %n characters",
-        "nb_NO": "Maks %n tegn",
-        "sv_SE": "Max %n tecken",
+    "invalid_email": {
+        "en_EN": "Invalid email",
+        "nb_NO": "Ugyldig e-post",
+        "sv_SE": "Ogiltig e-post"
     }
 }
 
+const validEmail = (email) => {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+
 export default {
-    name: 've-text',
+    name: 've-email',
     props: {
         value: [String, Number],
         label: String,
@@ -84,14 +84,6 @@ export default {
         placeholder: String,
         mask: String,
         browserAutocomplete: Boolean,
-        max: {
-            type: [Number, String],
-            default: 10000
-        },
-        min: {
-            type: [Number, String],
-            default: 0
-        },
         required: {
             type: Boolean,
             default: false
@@ -108,7 +100,7 @@ export default {
     methods: {
 
         handleInput(e) {
-            this.$emit('input', e)
+            this.$emit('input', e);
         },
 
         __(key) {
@@ -123,9 +115,8 @@ export default {
 
         validate() {
             return [
-                v => !(v && v.length < this.min) || this.__('min_length').replace('%s', this.min),
-                v => !(v && v.length > this.max) || this.__('max_length').replace('%s', this.max), 
-                v => !(this.required && (!v || v.length == '')) || this.__('required')
+                v => !(this.required && (!v || v.length == '')) || this.__('required'),
+                v => validEmail(v) || this.__('invalid_email')
             ]
         }
 

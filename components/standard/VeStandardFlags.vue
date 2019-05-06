@@ -73,16 +73,16 @@
                     <div :class="{
                         flag: true,
                         rounded: rounded != null,
-                        nb_NO: value == 'nb_NO',
-                        sv_SE: value == 'sv_SE',
-                        da_DK: value == 'da_DK',
-                        en_EN: value == 'en_EN',
-                        fi_FI: value == 'fi_FI',
-                        fr_FR: value == 'fr_FR',
-                        de_DE: value == 'de_DE',
-                        nl_NL: value == 'nl_NL',
-                        es_ES: value == 'es_ES',
-                        pl_PL: value == 'pl_PL'
+                        nb_NO: $root.locale == 'nb_NO',
+                        sv_SE: $root.locale == 'sv_SE',
+                        da_DK: $root.locale == 'da_DK',
+                        en_EN: $root.locale == 'en_EN',
+                        fi_FI: $root.locale == 'fi_FI',
+                        fr_FR: $root.locale == 'fr_FR',
+                        de_DE: $root.locale == 'de_DE',
+                        nl_NL: $root.locale == 'nl_NL',
+                        es_ES: $root.locale == 'es_ES',
+                        pl_PL: $root.locale == 'pl_PL'
                     }"></div>
                     <v-icon>keyboard_arrow_down</v-icon>
                 </v-btn>
@@ -92,7 +92,7 @@
                 <v-list-tile v-for="(lang, i) in languages" :key="i" @click="handleInput(lang.code)">
                     <v-list-tile-title>
                         <div :class="'flag ' + lang.code + ' list-flag' + (rounded != null ? ' rounded' : '')"></div>
-                        {{ lang.names[value] }}
+                        {{ lang.names[$root.locale] }}
                     </v-list-tile-title>
                 </v-list-tile>
             </v-list>
@@ -238,7 +238,6 @@ export default {
     name: 've-std-flags',
     props: [
         'rounded',
-        'value',
         'translations',
         'nb_NO', 'sv_SE', 'da_DK', 'en_EN', 'fi_FI', 'fr_FR', 'de_DE', 'nl_NL', 'es_ES', 'pl_PL'
         ],
@@ -248,7 +247,8 @@ export default {
     methods: {
 
         handleInput(e) {
-            this.$emit('input', e);
+            this.$root.locale = e
+            this.$emit('input', e)
         },
 
         getStyles() {

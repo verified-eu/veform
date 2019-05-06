@@ -1,5 +1,5 @@
 <template>
-    <v-app :style="background ? 'background-color:' + background + ';' : '' + backgroundImg ? 'background-image:' + backgroundImg : ''">
+    <v-app style="background: transparent !important">
         <slot></slot>
     </v-app>
 </template>
