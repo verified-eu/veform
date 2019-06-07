@@ -76,7 +76,7 @@ export default class VeForm {
                 locale: (val) => {
                     // Revalidate all forms in order to update error messages to the new locale
                     for(let ref of Object.values(this.h.$children[0].$refs))
-                        if(ref.$vnode.tag.includes('ve-form')) ref.validate()
+                        if(ref.$vnode.tag.includes('ve-form')) ref.resetValidation()
                 }
             },
             render: h => h(app)
